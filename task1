@@ -1,0 +1,32 @@
+/* 
+1. Создайте функцию, которая принимает кол-во сек и формат их в кол-во дней часов.
+Пример: 123456 ->'1 days 10 hours 17 minutes 36 seconds '
+*/
+
+DROP DATABASE IF EXISTS homewor6;
+CREATE DATABASE IF NOT EXISTS homewor6;
+USE homewor6;
+
+DELIMITER //
+CREATE FUNCTION fib7(sec DECIMAL)
+RETURNS VARCHAR(100)
+DETERMINISTIC
+BEGIN
+	
+    DECLARE cur_date DATETIME DEFAULT CURRENT_TIMESTAMP();
+    DECLARE days INT DEFAULT 0;
+    DECLARE hours INT DEFAULT 0;
+    DECLARE minutes INT DEFAULT 0;
+    DECLARE seconds INT DEFAULT 0;
+    DECLARE result VARCHAR(100) DEFAULT NULL;
+		SET days = FLOOR(sec / 86400);
+        SET hours = FLOOR((sec % 86400) / 3600);
+        SET minutes = FLOOR(((sec % 86400) % 3600) / 60);
+        SET seconds = FLOOR(((sec % 86400) % 3600) % 60);
+        SET result = CONCAT(days, ' days ', hours, ' hours ', minutes, ' minutes ', seconds, ' seconds ');
+	RETURN result;
+    
+END//
+DELIMITER ;
+
+SELECT fib7(123456);
