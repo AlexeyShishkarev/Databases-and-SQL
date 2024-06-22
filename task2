@@ -1,0 +1,28 @@
+/*
+2. Выведите только чётные числа от 1 до 10.
+Пример: 2,4,6,8,10
+*/
+
+DROP DATABASE IF EXISTS homewor6;
+CREATE DATABASE IF NOT EXISTS homewor6;
+USE homewor6;
+
+DELIMITER //
+CREATE PROCEDURE proc6(num1 INT, num2 INT)
+BEGIN
+	DECLARE cur_num INT DEFAULT num1;
+    DECLARE result VARCHAR(100) DEFAULT '';
+		WHILE cur_num < (num2 + 1) DO
+			IF cur_num % 2 = 0 THEN
+				SET result = CONCAT(result, " ", cur_num);
+                SET cur_num = cur_num + 1;
+			ELSE 
+				SET cur_num = cur_num + 1;
+			END IF;
+		END WHILE;
+	SELECT result;
+END //
+
+DELIMITER ;
+
+CALL proc6(1, 10);
